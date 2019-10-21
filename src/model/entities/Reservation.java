@@ -1,5 +1,6 @@
 package model.entities;
 
+import java.awt.Checkbox;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -39,9 +40,17 @@ public class Reservation {
 		
 		
 	}
-	public void updateDates(Date chekIn, Date ChekOut) {
+	public String  updateDates(Date chekIn, Date ChekOut) {
+		Date now = new Date();
+		if(chekIn.before(now)|| chekOut.before(now)) {
+			return "Reservation Dates for update must be future dates.";
+		}if (!chekOut.after(chekIn)) {
+			return "Check-out date must be after check-in date";
+		}
+		
 		this.chekIn=chekIn;
 		this.chekOut=chekOut;
+		return null; //N DEU ERRO 
 	}
 	@Override
 	public String toString() {

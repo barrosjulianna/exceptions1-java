@@ -20,7 +20,7 @@ public class Principal {
 		Date chekIn = sdf.parse(sc.next());
 		System.out.println("Check Out  date (dd/MM/yyyy");
 		Date chekOut = sdf.parse(sc.next());
-
+		
 		if (!chekOut.after(chekIn)) { // data chekout maior q a de chekin
 			System.out.println("Error in reservation: Check-out date must be after check-in date");
 		} else {
@@ -29,21 +29,23 @@ public class Principal {
 			System.out.println(rs);
 
 			System.out.println("\nEnter data to update the reservation:");
-			System.out.println("Check in date (dd/MM/yyyy");
+			System.out.println("Check in date (dd/MM/yyyy)");
 			chekIn = sdf.parse(sc.next());
-			System.out.println("Check Out  date (dd/MM/yyyy");
+			System.out.println("Check Out  date (dd/MM/yyyy)");
 			chekOut = sdf.parse(sc.next());
 
-			Date now = new Date();
-			if (chekIn.before(now) || chekOut.before(now)) {// SE DATA CHEKIN FOR ANTES DA DATA ATUAL QUE E NOW
-				System.out.println("Error in reservation: Reservation dates for update must be future dates");
-			} else if (!chekOut.after(chekIn)) {
-				System.out.println("Error in reservation: Check-out date must be after check-in date");
-
+			//mostrando o erro utilizando a classe reservation não a princjpal 
+			// String mostra se deu erro ou nao
+			String error = rs.updateDates(chekIn, chekOut);
+			if (error != null) {
+				System.out.println("Error reservation: " + error);
 			} else {
-				rs.updateDates(chekIn, chekOut);
+				
 				System.out.println(rs);
+
 			}
+
+			
 
 		}
 
