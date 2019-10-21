@@ -7,48 +7,47 @@ import java.util.Date;
 import java.util.Scanner;
 
 import model.entities.Reservation;
+import model.exceptions.DomainException;
 
 public class Principal {
 
-	public static void main(String[] args) throws ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Scanner sc = new Scanner(System.in);
-
-		System.out.println("Room number:");
-		int roomNumber = sc.nextInt();
-		System.out.println("Check in date (dd/MM/yyyy");
-		Date chekIn = sdf.parse(sc.next());
-		System.out.println("Check Out  date (dd/MM/yyyy");
-		Date chekOut = sdf.parse(sc.next());
-		
-		if (!chekOut.after(chekIn)) { // data chekout maior q a de chekin
-			System.out.println("Error in reservation: Check-out date must be after check-in date");
-		} else {
-
+	public static void main(String[] args)  {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			Scanner sc = new Scanner(System.in);
+			try {
+				
+			
+			System.out.println("Room number:");
+			int roomNumber = sc.nextInt();
+			System.out.println("Check in date (dd/MM/yyyy");
+			Date chekIn = sdf.parse(sc.next());
+			System.out.println("Check Out  date (dd/MM/yyyy");
+			Date chekOut = sdf.parse(sc.next());
+	
 			Reservation rs = new Reservation(roomNumber, chekIn, chekOut);
 			System.out.println(rs);
-
+	
 			System.out.println("\nEnter data to update the reservation:");
 			System.out.println("Check in date (dd/MM/yyyy)");
 			chekIn = sdf.parse(sc.next());
 			System.out.println("Check Out  date (dd/MM/yyyy)");
 			chekOut = sdf.parse(sc.next());
-
-			//mostrando o erro utilizando a classe reservation não a princjpal 
-			// String mostra se deu erro ou nao
-			String error = rs.updateDates(chekIn, chekOut);
-			if (error != null) {
-				System.out.println("Error reservation: " + error);
-			} else {
-				
-				System.out.println(rs);
-
-			}
-
-			
-
+	
+			rs.updateDates(chekIn, chekOut);
+			System.out.println(rs);
 		}
-
+		catch(ParseException e) {
+			System.out.println("Invalid date format");
+		}
+			catch(DomainException e) {
+				System.out.println("Error n reservation: "+e.getMessage());
+				//QUALQUER OUTRA EXCESSAO MOSTRAR ESSE ERRO, P N QUEBRAR O PROGRAMA
+			} catch(RuntimeException e) {
+				System.out.println("Unexpected error");
+			}
+			
+		
+		
 	}
 
 }
