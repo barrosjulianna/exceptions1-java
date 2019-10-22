@@ -41,7 +41,7 @@ public class Principal {
 		}
 			catch(DomainException e) {
 				System.out.println("Error n reservation: "+e.getMessage());
-				//QUALQUER OUTRA EXCESSAO MOSTRAR ESSE ERRO, P N QUEBRAR O PROGRAMA
+				//QUALQUER OUTRA EXCESSAO MOSTRAR ESSE ERRO, P N QUEBRAR O PROGRAMAAA
 			} catch(RuntimeException e) {
 				System.out.println("Unexpected error");
 			}
